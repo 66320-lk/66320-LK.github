@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>可爱表白互动</title>
+    <style>
+        body {
+            background: linear-gradient(#ffe4e1, #fdf5e6); /* 粉白渐变背景，模拟视频风格 */
+            text-align: center;
+            font-family: "微软雅黑", sans-serif;
+            padding-top: 50px;
+        }
+        .character {
+            width: 150px;
+            margin: 20px auto;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #yesBtn {
+            background-color: #f4c2c2; /* 粉色按钮 */
+        }
+        #noBtn {
+            background-color: #add8e6; /* 蓝色按钮 */
+        }
+        .dialog {
+            font-size: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dialog" id="dialogText">可以成为我的恋人吗？</div>
+<!-- 选择按钮 -->
+<button id="yesBtn">可以</button>
+<button id="noBtn">不要</button>
+
+<script>
+    // 获取DOM元素
+    const charImg = document.getElementById('charImg');
+    const dialogText = document.getElementById('dialogText');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    // 存储不同状态的角色图（可替换成视频里的熊猫表情图链接）
+    const charStates = {
+        normal: 'https://cdn-icons-png.flaticon.com/512/1005/1005277.png',
+        confused: 'https://cdn-icons-png.flaticon.com/512/1005/1005281.png',
+        sad: 'https://cdn-icons-png.flaticon.com/512/1005/1005283.png',
+        happy: 'https://cdn-icons-png.flaticon.com/512/1005/1005279.png'
+    };
+
+    // 「不要」按钮逻辑：模拟视频里拒绝后的“挽留”互动
+    noBtn.addEventListener('click', () => {
+        switch (dialogText.innerText) {
+            case '可以成为我的恋人吗？':
+                dialogText.innerText = '你认真的吗...';
+                charImg.src = charStates.confused;
+                noBtn.innerText = '？你认真的吗...'; // 按钮文字变化
+                yesBtn.innerText = '可以';
+                break;
+            case '你认真的吗...':
+                dialogText.innerText = '要不再想想？';
+                charImg.src = charStates.sad;
+                noBtn.innerText = '要不再想想？';
+                yesBtn.innerText = '可以';
+                break;
+            case '要不再想想？':
+                dialogText.innerText = '不许选这个！';
+                charImg.src = charStates.sad;
+                noBtn.innerText = '不许选这个！';
+                yesBtn.innerText = '可以';
+                break;
+            case '不许选这个！':
+                dialogText.innerText = '我会很伤心...';
+                charImg.src = charStates.sad;
+                noBtn.innerText = '我会很伤心...';
+                yesBtn.innerText = '可以';
+                break;
+            case '我会很伤心...':
+                dialogText.innerText = '不行(';
+                charImg.src = charStates.sad;
+                noBtn.innerText = '不行(';
+                yesBtn.innerText = '可以';
+                break;
+            // 可继续扩展更多拒绝分支~
+        }
+    });
+
+    // 「可以」按钮逻辑：触发“成功表白”结局
+    yesBtn.addEventListener('click', () => {
+        dialogText.innerText = '!!!喜欢你!! ( >﹏<)♡';
+        charImg.src = charStates.happy;
+        // 隐藏按钮，模拟视频里最后两个角色贴贴
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+        // 还可以添加“第二个角色出现”的动画/图片切换
+        setTimeout(() => {
+            charImg.src = 'https://cdn-icons-png.flaticon.com/512/1005/1005285.png'; // 假设是另一个卡通角色
+        }, 1500);
+    });
+</script>
+</body>
+</html>
